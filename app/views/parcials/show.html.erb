@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @parcial.numero %>
+</p>
+
+<p>
+  <strong>Calificacion:</strong>
+  <%= @parcial.calificacion %>
+</p>
+
+<%= link_to 'Edit', edit_parcial_path(@parcial) %> |
+<%= link_to 'Back', parcials_path %>
