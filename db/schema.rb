@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426135826) do
+ActiveRecord::Schema.define(version: 20150426173003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20150426135826) do
     t.integer  "ponderacion"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "id_parcial"
+    t.integer  "parcial_id"
   end
 
   create_table "alumnos", force: :cascade do |t|
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20150426135826) do
     t.string   "password"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.integer  "id_carrera"
+    t.integer  "carrera_id"
   end
 
   create_table "carreras", force: :cascade do |t|
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150426135826) do
     t.string   "siglas"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "id_director"
+    t.integer  "director_id"
   end
 
   create_table "directors", force: :cascade do |t|
@@ -60,6 +60,38 @@ ActiveRecord::Schema.define(version: 20150426135826) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  create_table "materia_alumnos", force: :cascade do |t|
+    t.integer  "materia_id"
+    t.integer  "alumno_id"
+    t.date     "fecha"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "materia_alumnos", ["alumno_id"], name: "index_materia_alumnos_on_alumno_id", using: :btree
+  add_index "materia_alumnos", ["materia_id"], name: "index_materia_alumnos_on_materia_id", using: :btree
+
+  create_table "materia_carreras", force: :cascade do |t|
+    t.integer  "materia_id"
+    t.integer  "carrera_id"
+    t.integer  "semestre"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "materia_carreras", ["carrera_id"], name: "index_materia_carreras_on_carrera_id", using: :btree
+  add_index "materia_carreras", ["materia_id"], name: "index_materia_carreras_on_materia_id", using: :btree
+
+  create_table "materia_profesors", force: :cascade do |t|
+    t.integer  "materia_id"
+    t.integer  "profesor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "materia_profesors", ["materia_id"], name: "index_materia_profesors_on_materia_id", using: :btree
+  add_index "materia_profesors", ["profesor_id"], name: "index_materia_profesors_on_profesor_id", using: :btree
 
   create_table "parcials", force: :cascade do |t|
     t.integer  "numero"
